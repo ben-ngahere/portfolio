@@ -13,9 +13,7 @@ import {
   SiAuth0,
   SiPostgresql,
   SiSqlite,
-  SiCss3,
   SiGit,
-  SiGithub
 } from 'react-icons/si';
 import { TbApi, TbBrandFramerMotion } from 'react-icons/tb';
 import { MdOutlineAnimation } from 'react-icons/md';
