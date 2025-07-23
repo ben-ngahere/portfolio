@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaGithub, FaExternalLinkAlt, FaTimes, FaPlay } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaTimes, FaPlay, FaReact, FaNodeJs, FaDocker } from 'react-icons/fa';
+import { SiTypescript, SiPostgresql, SiExpress, SiTailwindcss, SiSqlite, SiBulma } from 'react-icons/si';
+import { DiGitBranch } from 'react-icons/di';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -56,7 +58,7 @@ const Projects: React.FC = () => {
       techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Auth0', 'TailwindCSS', 'Express.js', 'Knex.js'],
       githubUrl: 'https://github.com/ben-ngahere/fit-quest',
       liveUrl: 'https://fitquest-wupo.onrender.com/',
-      screenshot: '/api/placeholder/600/400',
+      screenshot: '/client/public/images/fitquest-screenshot.png',
       features: [
         'RPG-style character progression',
         'Daily quest system',
@@ -73,7 +75,7 @@ const Projects: React.FC = () => {
       techStack: ['React', 'TypeScript', 'Node.js', 'SQLite', 'Auth0', 'BulmaCSS', 'Express.js', 'Knex.js'],
       githubUrl: 'https://github.com/ben-ngahere/thunk',
       liveUrl: 'https://thunk-jx31.onrender.com/',
-      screenshot: '/api/placeholder/600/400',
+      screenshot: '/client/public/images/thunk-screenshot.png',
       features: [
         'Secure user authentication',
         'Intuitive content organisation',
@@ -133,6 +135,12 @@ const Projects: React.FC = () => {
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleModalClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
     }
   };
 
@@ -198,9 +206,13 @@ const Projects: React.FC = () => {
 
       {/* Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl border border-white/10 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-gray-900/95 backdrop-blur-md border-b border-white/10 p-6 flex items-center justify-between">
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={handleModalClick}
+        >
+          <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl border border-white/10 max-w-4xl w-full max-h-[90vh] flex flex-col">
+            {/* Fixed Header */}
+            <div className="bg-gray-900/95 backdrop-blur-md border-b border-white/10 p-6 flex items-center justify-between flex-shrink-0">
               <div className="flex items-center space-x-4">
                 <h3 className="text-2xl font-bold text-white">{selectedProject.title}</h3>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${getStatusColor(selectedProject.status)} text-white`}>
@@ -220,7 +232,8 @@ const Projects: React.FC = () => {
               </button>
             </div>
             
-            <div className="p-6 space-y-6">
+            {/* Scrollable Content */}
+            <div className="p-6 space-y-6 overflow-y-auto flex-1">
               {/* Media Section */}
               <div className="relative">
                 {selectedProject.video && selectedProject.id === 'fono' ? (
@@ -275,12 +288,34 @@ const Projects: React.FC = () => {
               {/* Tech Stack */}
               <div>
                 <h4 className="text-lg font-semibold text-white mb-3">Tech Stack</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.techStack.map((tech) => (
-                    <span key={tech} className="px-3 py-1 bg-gray-800 text-gray-300 rounded-lg border border-gray-700">
-                      {tech}
-                    </span>
-                  ))}
+                <div className="flex flex-wrap gap-3">
+                  {selectedProject.techStack.map((tech) => {
+                    const getTechIcon = (techName: string) => {
+                      const name = techName.toLowerCase();
+                      if (name.includes('react')) return { icon: FaReact, color: 'text-blue-400' };
+                      if (name.includes('typescript')) return { icon: SiTypescript, color: 'text-blue-400' };
+                      if (name.includes('node')) return { icon: FaNodeJs, color: 'text-green-400' };
+                      if (name.includes('express')) return { icon: SiExpress, color: 'text-green-400' };
+                      if (name.includes('postgresql')) return { icon: SiPostgresql, color: 'text-purple-400' };
+                      if (name.includes('sqlite')) return { icon: SiSqlite, color: 'text-purple-400' };
+                      if (name.includes('docker')) return { icon: FaDocker, color: 'text-orange-400' };
+                      if (name.includes('tailwind')) return { icon: SiTailwindcss, color: 'text-teal-400' };
+                      if (name.includes('bulma')) return { icon: SiBulma, color: 'text-teal-400' };
+                      if (name.includes('auth0')) return { icon: DiGitBranch, color: 'text-orange-400' };
+                      if (name.includes('pusher')) return { icon: DiGitBranch, color: 'text-purple-400' };
+                      if (name.includes('knex')) return { icon: DiGitBranch, color: 'text-green-400' };
+                      return { icon: DiGitBranch, color: 'text-gray-400' };
+                    };
+                    
+                    const { icon: IconComponent, color } = getTechIcon(tech);
+                    
+                    return (
+                      <div key={tech} className="flex items-center space-x-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700/50 hover:bg-gray-700/50 transition-colors group">
+                        <IconComponent className={`w-5 h-5 ${color} group-hover:scale-110 transition-transform`} />
+                        <span className="text-gray-300 text-sm">{tech}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
               
