@@ -2,7 +2,7 @@
 import Hero from './Hero'
 import Skills from './skills'
 import About from './About'
-import Projects from './Projects'
+import Projects from './projects'
 import Navigation from './Navigation'
 import Contact from './Contact'
 import { FaReact } from 'react-icons/fa';
