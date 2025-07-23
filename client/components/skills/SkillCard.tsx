@@ -79,9 +79,9 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
       {/* Progress Section */}
       <div className="mb-4">
         <div className="flex justify-between items-center mb-3">
-          <span className="text-sm text-gray-300" style={{ fontFamily: 'Inter, sans-serif' }}>
+          {/* <span className="text-sm text-gray-300" style={{ fontFamily: 'Inter, sans-serif' }}>
             Proficiency
-          </span>
+          </span> */}
         </div>
 
         {/* Progress Bar */}

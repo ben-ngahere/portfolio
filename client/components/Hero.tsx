@@ -19,79 +19,6 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
 
     if (!name || !subtitle || !button) return;
 
-    // Create floating particles
-    const createParticles = () => {
-      const colors = [
-        'rgba(135, 206, 235, 0.6)', // light blue
-        'rgba(255, 215, 0, 0.5)',   // gold
-        'rgba(147, 112, 219, 0.6)', // purple
-        'rgba(138, 43, 226, 0.5)',  // violet
-        'rgba(255, 20, 147, 0.6)',  // magenta
-        'rgba(144, 238, 144, 0.5)'  // light green
-      ];
-
-      const particleContainer = document.createElement('div');
-      particleContainer.className = 'particle-container';
-      particleContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-      `;
-
-      // Create 10 particles
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const size = Math.random() * 3 + 2; // 2-5px
-        
-        particle.style.cssText = `
-          position: absolute;
-          width: ${size}px;
-          height: ${size}px;
-          background: ${color};
-          border-radius: 50%;
-          filter: blur(0.5px);
-          box-shadow: 0 0 ${size * 2}px ${color};
-        `;
-
-        // Random starting position
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-
-        particleContainer.appendChild(particle);
-
-        // Gentle floating animation
-        gsap.to(particle, {
-          x: (Math.random() - 0.5) * 200,
-          y: (Math.random() - 0.5) * 150,
-          duration: Math.random() * 15 + 10, // 10-25 seconds
-          ease: 'none',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 5
-        });
-
-        // Gentle opacity breathing
-        gsap.to(particle, {
-          opacity: Math.random() * 0.3 + 0.3, // 0.3-0.6
-          duration: Math.random() * 3 + 2, // 2-5 seconds
-          ease: 'power2.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 2
-        });
-      }
-
-      document.querySelector('#hero')?.appendChild(particleContainer);
-    };
-
-    // Start particles immediately
-    createParticles();
-
     // Set initial states for main elements
     gsap.set(name, {
       opacity: 0.2,
@@ -189,14 +116,6 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
       repeat: -1,
       delay: 8
     });
-
-    // Cleanup function
-    return () => {
-      const particleContainer = document.querySelector('.particle-container');
-      if (particleContainer) {
-        particleContainer.remove();
-      }
-    };
 
   }, [onHamburgerAnimationComplete]);
 

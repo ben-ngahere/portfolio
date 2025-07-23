@@ -35,7 +35,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
       className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={handleModalClick}
     >
-      <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl border border-white/10 max-w-4xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-gray-900/95 backdrop-blur-md rounded-2xl border border-white/10 max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         {/* Fixed Header */}
         <div className="bg-gray-900/95 backdrop-blur-md border-b border-white/10 p-6 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center space-x-4">
@@ -51,14 +51,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
             >
               {project.status}
             </span>
-            {project.role && (
-              <span 
-                className="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded border border-blue-500/30"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
-                {project.role}
-              </span>
-            )}
           </div>
           <button
             onClick={onClose}
@@ -84,7 +76,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               className="text-lg font-semibold text-white mb-3"
               style={{ fontFamily: 'JetBrains Mono, monospace' }}
             >
-              About This Project
+              About
             </h4>
             <p 
               className="text-gray-300 leading-relaxed"
@@ -100,7 +92,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               className="text-lg font-semibold text-white mb-3"
               style={{ fontFamily: 'JetBrains Mono, monospace' }}
             >
-              Key Features
+              Features
             </h4>
             <ul className="space-y-2">
               {project.features.map((feature, index) => (

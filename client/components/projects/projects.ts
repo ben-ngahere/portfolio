@@ -38,12 +38,12 @@ export const projectsData: Project[] = [
   {
     id: 'fitquest',
     title: 'Fit Quest',
-    tagline: 'Real-world fitness RPG built in one week',
+    tagline: 'Real-world fitness RPG experience',
     status: 'Live',
-    description: "Our final group project where we gamified fitness using RPG mechanics. Users earn STR, DEX and INT points through daily quest completion. I served as Agile Facilitator, which basically meant keeping everyone organised and making sure we had something functional in a week.",
+    description: "A final group project where we gamified fitness using RPG mechanics. Users earn STR, DEX and INT points through daily quest completion. I served as Agile Facilitator, which meant keeping everyone organised and making sure we had something functional in a week.",
     role: 'Agile Facilitator',
     techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Auth0', 'Tailwind CSS', 'Express.js', 'Knex.js'],
-    githubUrl: 'https://github.com/ben-ngahere/fit-quest',
+    githubUrl: '',
     liveUrl: 'https://fitquest-wupo.onrender.com/',
     images: ['/client/public/images/fitquest-screenshot.png'],
     features: [

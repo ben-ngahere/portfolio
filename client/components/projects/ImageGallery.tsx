@@ -30,7 +30,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
       <img
         src={images[currentImageIndex]}
         alt={`${projectTitle} screenshot ${currentImageIndex + 1}`}
-        className="w-full rounded-xl"
+        className="w-full rounded-xl overflow-hidden"
       />
       
       {/* Navigation arrows - only show if multiple images */}

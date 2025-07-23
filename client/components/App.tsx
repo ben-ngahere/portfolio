@@ -7,10 +7,12 @@ import Navigation from './Navigation'
 import Contact from './Contact'
 import { FaReact } from 'react-icons/fa';
 import { SiTypescript, SiVite, SiTailwindcss, SiGreensock } from 'react-icons/si';
+import GlobalParticles from './GlobalParticles'
 
 export default function App() {
   return (
     <div className="App min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900">
+      <GlobalParticles />
       <Navigation />
       <Hero />
       <About />

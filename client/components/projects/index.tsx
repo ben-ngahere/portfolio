@@ -28,79 +28,6 @@ const Projects: React.FC = () => {
 
     if (!section || !title || !subtitle || !cards || !downArrow) return;
 
-    // Create floating particles
-    const createParticles = () => {
-      const colors = [
-        'rgba(135, 206, 235, 0.4)', // light blue
-        'rgba(255, 215, 0, 0.3)',   // gold
-        'rgba(147, 112, 219, 0.4)', // purple
-        'rgba(138, 43, 226, 0.3)',  // violet
-        'rgba(255, 20, 147, 0.4)',  // magenta
-        'rgba(144, 238, 144, 0.3)'  // light green
-      ];
-
-      // Remove existing particles
-      const existingParticles = document.querySelector('.projects-particle-container');
-      if (existingParticles) {
-        existingParticles.remove();
-      }
-
-      const particleContainer = document.createElement('div');
-      particleContainer.className = 'projects-particle-container';
-      particleContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-      `;
-
-      // Create 20 particles
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const size = Math.random() * 2.5 + 1.5;
-        
-        particle.style.cssText = `
-          position: absolute;
-          width: ${size}px;
-          height: ${size}px;
-          background: ${color};
-          border-radius: 50%;
-          filter: blur(0.5px);
-          box-shadow: 0 0 ${size * 2}px ${color};
-        `;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particleContainer.appendChild(particle);
-
-        // Animations
-        gsap.to(particle, {
-          x: (Math.random() - 0.5) * 150,
-          y: (Math.random() - 0.5) * 100,
-          duration: Math.random() * 12 + 8,
-          ease: 'none',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 4
-        });
-
-        gsap.to(particle, {
-          opacity: Math.random() * 0.4 + 0.2,
-          duration: Math.random() * 4 + 2,
-          ease: 'power2.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 3
-        });
-      }
-      section.appendChild(particleContainer);
-    };
-
-    createParticles();
-
     // Set initial states
     gsap.set([title, subtitle, downArrow], { opacity: 0, y: 30 });
 
@@ -164,11 +91,6 @@ const Projects: React.FC = () => {
           trigger.kill();
         }
       });
-      
-      const particleContainer = document.querySelector('.projects-particle-container');
-      if (particleContainer) {
-        particleContainer.remove();
-      }
     };
   }, []);
 
@@ -211,7 +133,7 @@ const Projects: React.FC = () => {
               className="text-xl text-gray-300 max-w-2xl mx-auto"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              What I've done and working on
+              What I've done. What I'm working on
             </p>
           </div>
 

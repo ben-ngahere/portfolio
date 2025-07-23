@@ -22,79 +22,6 @@ const About: React.FC = () => {
 
     if (!section || !heading || !content || !timeline || !button) return;
 
-    // Create floating particles
-    const createParticles = () => {
-      const colors = [
-        'rgba(135, 206, 235, 0.4)', // light blue
-        'rgba(255, 215, 0, 0.3)',   // gold
-        'rgba(147, 112, 219, 0.4)', // purple
-        'rgba(138, 43, 226, 0.3)',  // violet
-        'rgba(255, 20, 147, 0.4)',  // magenta
-        'rgba(144, 238, 144, 0.3)'  // light green
-      ];
-
-      const particleContainer = document.createElement('div');
-      particleContainer.className = 'about-particle-container';
-      particleContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-      `;
-
-      // Create 20 particles for About section
-      for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const size = Math.random() * 2.5 + 1.5; // 1.5-4px
-        
-        particle.style.cssText = `
-          position: absolute;
-          width: ${size}px;
-          height: ${size}px;
-          background: ${color};
-          border-radius: 50%;
-          filter: blur(0.5px);
-          box-shadow: 0 0 ${size * 2}px ${color};
-        `;
-
-        // Random starting position
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-
-        particleContainer.appendChild(particle);
-
-        // Gentle floating animation
-        gsap.to(particle, {
-          x: (Math.random() - 0.5) * 150,
-          y: (Math.random() - 0.5) * 100,
-          duration: Math.random() * 12 + 8, // 8-20 seconds
-          ease: 'none',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 4
-        });
-
-        // Gentle opacity breathing
-        gsap.to(particle, {
-          opacity: Math.random() * 0.4 + 0.2, // 0.2-0.6
-          duration: Math.random() * 4 + 2, // 2-6 seconds
-          ease: 'power2.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: Math.random() * 3
-        });
-      }
-
-      section.appendChild(particleContainer);
-    };
-
-    // Start particles
-    createParticles();
-
     // Set initial states
     gsap.set(button, {
       opacity: 0,
@@ -180,10 +107,6 @@ const About: React.FC = () => {
     // Cleanup function
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      const particleContainer = document.querySelector('.about-particle-container');
-      if (particleContainer) {
-        particleContainer.remove();
-      }
     };
   }, []);
 
