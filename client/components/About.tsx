@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -84,6 +85,7 @@ const About: React.FC = () => {
   return (
     <section 
       ref={sectionRef}
+      id="about"
       className="min-h-screen flex items-center justify-center px-4 py-20"
     >
       <div className="max-w-6xl mx-auto">

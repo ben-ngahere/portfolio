@@ -17,8 +17,7 @@ interface Project {
   techStack: string[];
   githubUrl?: string;
   liveUrl?: string;
-  screenshot?: string;
-  video?: string;
+  images: string[];
   features: string[];
 }
 
@@ -27,8 +26,7 @@ const Projects: React.FC = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const projects: Project[] = [
     {
@@ -39,8 +37,13 @@ const Projects: React.FC = () => {
       description: "Currently building a privacy-first communication platform that explores modern security principles. It's been a proper deep dive into real-time messaging, encryption, and user experience design. The kind of project where you disappear down rabbit holes understanding how secure protocols actually work.",
       techStack: ['React', 'TypeScript', 'Node.js', 'Auth0', 'PostgreSQL', 'Docker', 'Pusher', 'TailwindCSS'],
       githubUrl: 'https://github.com/ben-ngahere/fono',
-      screenshot: '/api/placeholder/600/400',
-      video: '/api/placeholder/600/400',
+      images: [
+        '/client/public/images/fono-1.png',
+        '/client/public/images/fono-2.png',
+        '/client/public/images/fono-3.png',
+        '/client/public/images/fono-4.png',
+        '/client/public/images/fono-5.png'
+      ],
       features: [
         'End-to-end encrypted messaging',
         'Real-time communication with Pusher',
@@ -58,7 +61,7 @@ const Projects: React.FC = () => {
       techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Auth0', 'TailwindCSS', 'Express.js', 'Knex.js'],
       githubUrl: 'https://github.com/ben-ngahere/fit-quest',
       liveUrl: 'https://fitquest-wupo.onrender.com/',
-      screenshot: '/client/public/images/fitquest-screenshot.png',
+      images: ['/client/public/images/fitquest-screenshot.png'],
       features: [
         'RPG-style character progression',
         'Daily quest system',
@@ -75,7 +78,7 @@ const Projects: React.FC = () => {
       techStack: ['React', 'TypeScript', 'Node.js', 'SQLite', 'Auth0', 'BulmaCSS', 'Express.js', 'Knex.js'],
       githubUrl: 'https://github.com/ben-ngahere/thunk',
       liveUrl: 'https://thunk-jx31.onrender.com/',
-      screenshot: '/client/public/images/thunk-screenshot.png',
+      images: ['/client/public/images/thunk-screenshot.png'],
       features: [
         'Secure user authentication',
         'Intuitive content organisation',
@@ -126,16 +129,12 @@ const Projects: React.FC = () => {
 
   const openModal = (project: Project) => {
     setSelectedProject(project);
-    setIsVideoPlaying(false);
+    setCurrentImageIndex(0);
   };
 
   const closeModal = () => {
     setSelectedProject(null);
-    setIsVideoPlaying(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
+    setCurrentImageIndex(0);
   };
 
   const handleModalClick = (e: React.MouseEvent) => {
@@ -144,15 +143,24 @@ const Projects: React.FC = () => {
     }
   };
 
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
+  const nextImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => 
+        prev === selectedProject.images.length - 1 ? 0 : prev + 1
+      );
     }
+  };
+
+  const prevImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? selectedProject.images.length - 1 : prev - 1
+      );
+    }
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
   };
 
   const getStatusColor = (status: string) => {
@@ -161,7 +169,7 @@ const Projects: React.FC = () => {
 
   return (
     <>
-      <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-4 py-20">
+      <section ref={sectionRef} id="projects" className="min-h-screen flex items-center justify-center px-4 py-20">
         <div className="max-w-6xl mx-auto">
           <h2 
             ref={headingRef}
@@ -234,35 +242,51 @@ const Projects: React.FC = () => {
             
             {/* Scrollable Content */}
             <div className="p-6 space-y-6 overflow-y-auto flex-1">
-              {/* Media Section */}
+              {/* Image Gallery */}
               <div className="relative">
-                {selectedProject.video && selectedProject.id === 'fono' ? (
-                  <div className="relative">
-                    <video
-                      ref={videoRef}
-                      className="w-full rounded-xl"
-                      poster={selectedProject.screenshot}
-                    >
-                      <source src={selectedProject.video} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                <img
+                  src={selectedProject.images[currentImageIndex]}
+                  alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
+                  className="w-full rounded-xl"
+                />
+                
+                {/* Navigation arrows - only show if multiple images */}
+                {selectedProject.images.length > 1 && (
+                  <>
                     <button
-                      onClick={toggleVideo}
-                      className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/20 transition-colors rounded-xl"
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
                     >
-                      {!isVideoPlaying && (
-                        <div className="bg-blue-500 hover:bg-blue-600 rounded-full p-4 transition-colors">
-                          <FaPlay className="w-8 h-8 text-white ml-1" />
-                        </div>
-                      )}
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
                     </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+                
+                {/* Dots indicator - only show if multiple images */}
+                {selectedProject.images.length > 1 && (
+                  <div className="flex justify-center space-x-2 mt-4">
+                    {selectedProject.images.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => goToImage(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                          index === currentImageIndex 
+                            ? 'bg-blue-400' 
+                            : 'bg-gray-600 hover:bg-gray-500'
+                        }`}
+                      />
+                    ))}
                   </div>
-                ) : (
-                  <img
-                    src={selectedProject.screenshot}
-                    alt={`${selectedProject.title} screenshot`}
-                    className="w-full rounded-xl"
-                  />
                 )}
               </div>
               

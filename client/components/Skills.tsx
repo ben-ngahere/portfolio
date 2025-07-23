@@ -462,7 +462,7 @@ const Skills: React.FC = () => {
           </div>
         </div>
 
-        {/* SIMPLE NAVIGATION: Arrow Dot Dot Arrow */}
+        {/* Arrow Dot Dot Arrow */}
         {totalSlides > 1 && (
           <div className="flex items-center justify-center space-x-2 mt-8">
             <button
