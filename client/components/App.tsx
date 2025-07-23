@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router'
+// import React from 'react';
+import Hero from './Hero'
+import Skills from './skills'
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <h1>App Header</h1>
-      <Outlet />
+    <div className="App min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <Hero />
+      <Skills />
     </div>
-  )
+  );
 }
-
-export default App
