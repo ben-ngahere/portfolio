@@ -1,4 +1,3 @@
-// client/data/skills.ts
 
 export interface Skill {
   name: string;
@@ -7,83 +6,113 @@ export interface Skill {
 }
 
 export const skillsData: Skill[] = [
-  // Frontend - Core skills only
+  // Frontend
   {
     name: 'React',
-    level: 75,
+    level: 45,
     category: 'Frontend'
   },
   {
     name: 'TypeScript',
-    level: 70,
+    level: 40, 
     category: 'Frontend'
   },
   {
     name: 'JavaScript (ES6+)',
-    level: 80,
+    level: 50,
+    category: 'Frontend'
+  },
+  {
+    name: 'Vite',
+    level: 40,
     category: 'Frontend'
   },
   {
     name: 'Tailwind CSS',
-    level: 70,
+    level: 35,
+    category: 'Frontend'
+  },
+  {
+    name: 'Bulma CSS',
+    level: 45,
     category: 'Frontend'
   },
   
-  // Backend - Core skills only
+  // Backend
   {
     name: 'Node.js',
-    level: 70,
+    level: 40, 
     category: 'Backend'
   },
   {
     name: 'Express.js',
-    level: 75,
+    level: 45, 
     category: 'Backend'
   },
   {
     name: 'RESTful APIs',
-    level: 70,
+    level: 40, 
+    category: 'Backend'
+  },
+  {
+    name: 'Knex.js',
+    level: 40, 
     category: 'Backend'
   },
   {
     name: 'Auth0',
-    level: 65,
+    level: 40, 
     category: 'Backend'
   },
   
   // Database
   {
     name: 'PostgreSQL',
-    level: 65,
+    level: 35, 
     category: 'Database'
   },
   {
     name: 'SQLite',
-    level: 60,
+    level: 40, 
     category: 'Database'
   },
   
-  // Animation - Your specialty
+  // Animation 
   {
     name: 'GSAP',
-    level: 60,
+    level: 40,
     category: 'Animation'
   },
   {
-    name: 'CSS Animations',
-    level: 65,
+    name: 'Framer Motion',
+    level: 35,
     category: 'Animation'
   },
   
   // Essential Tools
   {
     name: 'Git & GitHub',
-    level: 75,
+    level: 45,
     category: 'Tools'
   },
   {
     name: 'Agile Methodologies',
-    level: 70,
+    level: 50, 
+    category: 'Tools'
+  },
+  {
+    name: 'Docker',
+    level: 20,
+    category: 'Tools'
+  },
+  {
+    name: 'Render',
+    level: 40,
+    category: 'Tools'
+  },
+  {
+    name: 'Vercel',
+    level: 10,
     category: 'Tools'
   }
 ];

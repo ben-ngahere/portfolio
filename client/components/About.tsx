@@ -332,9 +332,9 @@ const About: React.FC = () => {
           <button 
             ref={buttonRef}
             onClick={scrollToSkills}
-            className="group relative w-16 h-16 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-110 shadow-xl hover:shadow-2xl flex items-center justify-center"
+            className="group relative w-8 h-8 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-110 shadow-xl hover:shadow-2xl flex items-center justify-center"
           >
-            <FaChevronDown className="w-6 h-6 transition-transform duration-300 group-hover:translate-y-1 group-hover:scale-110" />
+            <FaChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1 group-hover:scale-110" />
             
             {/* Ripple effect on hover */}
             <div className="absolute inset-0 rounded-full bg-white/5 scale-0 group-hover:scale-150 transition-transform duration-500 ease-out pointer-events-none"></div>
