@@ -30,6 +30,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "gsap": "^3.13.0",
     "superagent": "^10.2.1"
   },
   "devDependencies": {
