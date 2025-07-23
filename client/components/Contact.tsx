@@ -97,7 +97,7 @@ const Contact: React.FC = () => {
           className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
           style={{ fontFamily: 'JetBrains Mono, monospace' }}
         >
-          Let's Connect
+          Contact
         </h2>
         
         <div ref={contentRef} className="space-y-8">

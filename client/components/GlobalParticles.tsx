@@ -23,7 +23,7 @@ const GlobalParticles: React.FC = () => {
       container.innerHTML = '';
 
       // Create 'x' particles
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 50; i++) {
         const particle = document.createElement('div');
         const color = colors[Math.floor(Math.random() * colors.length)];
         const size = Math.random() * 2.5 + 1.5; // 1.5-4px

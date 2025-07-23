@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gradient-morph {
+  background: linear-gradient(
+    45deg,
+    #06b6d4,  /* cyan-400 */
+    #ec4899,  /* pink-400 */ 
+    #a855f7,  /* purple-500 */
+    #ec4899,  /* pink-500 */
+    #3b82f6,  /* blue-500 */
+    #a855f7,  /* purple-500 */
+    #10b981,  /* green-500 */
+    #3b82f6,  /* blue-500 */
+    #06b6d4   /* back to cyan-400 */
+  );
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMorph 12s ease-in-out infinite;
+}
+
+@keyframes gradientMorph {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Delay the animation start */
+.gradient-morph-delayed {
+  background: linear-gradient(to right, #06b6d4, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMorph 12s ease-in-out infinite;
+  animation-delay:2s; /* Starts after matrix effect + down arrow */
+  animation-fill-mode: backwards;
+}

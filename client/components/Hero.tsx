@@ -135,15 +135,15 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
         {/* Main Name */}
         <h1 
           ref={nameRef}
-          className="text-6xl md:text-8xl font-bold mb-8 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent cursor-default select-none"
+          className="text-6xl md:text-8xl font-bold mb-8 gradient-morph cursor-default select-none"
           style={{ 
-            fontFamily: 'JetBrains Mono, Monaco, Consolas, monospace',
-            textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-            letterSpacing: '-0.02em'
+          fontFamily: 'JetBrains Mono, Monaco, Consolas, monospace',
+          textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          letterSpacing: '-0.02em'
           }}
-        >
+>
           Ben Ngahere
-        </h1>
+          </h1>
 
         {/* Subtitle */}
         <p 
