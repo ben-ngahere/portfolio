@@ -1,4 +1,3 @@
-// client/components/GlobalParticles.tsx
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
@@ -22,12 +21,13 @@ const GlobalParticles: React.FC = () => {
       // Clear any existing particles
       container.innerHTML = '';
 
-      // Create 'x' particles
+      // Create particles
       for (let i = 0; i < 50; i++) {
         const particle = document.createElement('div');
         const color = colors[Math.floor(Math.random() * colors.length)];
         const size = Math.random() * 2.5 + 1.5; // 1.5-4px
         
+        // Particle styling
         particle.style.cssText = `
           position: absolute;
           width: ${size}px;
@@ -36,6 +36,9 @@ const GlobalParticles: React.FC = () => {
           border-radius: 50%;
           filter: blur(0.5px);
           box-shadow: 0 0 ${size * 2}px ${color};
+          will-change: transform, opacity;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
         `;
         
         // Random positioning across the viewport
@@ -43,6 +46,12 @@ const GlobalParticles: React.FC = () => {
         particle.style.top = Math.random() * 100 + '%';
         
         container.appendChild(particle);
+
+        // Set initial transform
+        gsap.set(particle, {
+          force3D: true,
+          transformOrigin: "center center"
+        });
 
         // Floating animations
         gsap.to(particle, {
@@ -52,7 +61,8 @@ const GlobalParticles: React.FC = () => {
           ease: 'none',
           repeat: -1,
           yoyo: true,
-          delay: Math.random() * 5
+          delay: Math.random() * 5,
+          force3D: true
         });
 
         // Opacity pulsing
@@ -62,7 +72,8 @@ const GlobalParticles: React.FC = () => {
           ease: 'power2.inOut',
           repeat: -1,
           yoyo: true,
-          delay: Math.random() * 3
+          delay: Math.random() * 3,
+          force3D: true
         });
       }
     };
@@ -72,6 +83,8 @@ const GlobalParticles: React.FC = () => {
     // Cleanup function
     return () => {
       if (container) {
+        // Kill all GSAP animations before cleanup
+        gsap.killTweensOf(container.children);
         container.innerHTML = '';
       }
     };
@@ -84,6 +97,9 @@ const GlobalParticles: React.FC = () => {
       style={{
         width: '100vw',
         height: '100vh',
+        willChange: 'transform',
+        transform: 'translate3d(0, 0, 0)',
+        backfaceVisibility: 'hidden'
       }}
     />
   );

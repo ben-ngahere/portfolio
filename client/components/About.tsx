@@ -94,15 +94,15 @@ const About: React.FC = () => {
       ease: "power2.out"
     }, '+=0.3');
 
-    // Add subtle breathing effect to button
-    gsap.to(button, {
-      scale: 1.02,
-      duration: 3,
-      ease: "power2.inOut",
-      yoyo: true,
-      repeat: -1,
-      delay: 3
-    });
+    // Down arrow pulse animation
+        gsap.to(button, {
+          y: 10,
+          duration: 1.5,
+          ease: 'power2.inOut',
+          repeat: -1,
+          yoyo: true,
+          delay: 1
+        });
 
     // Cleanup function
     return () => {
@@ -114,13 +114,13 @@ const About: React.FC = () => {
     {
       period: "2010-2025",
       title: "Retail & Tech Management",
-      description: "Over a decade of being that person who'd stay late reading documentation just to understand how the new systems worked - same energy I put into researching the perfect bike or snowboard components",
+      description: "My time in retail management taught me to lead teams and understand complex systems. I was always the person who'd dig into documentation to understand how they worked, then broke it down for my team.",
       color: "from-purple-500 to-pink-500"
     },
     {
       period: "2025",
       title: "Dev Academy Aotearoa",
-      description: "800 hours where I discovered my passion wasn't just solving problems - it was building the solutions. Like finally understanding why certain game mechanics work so well together",
+      description: "800 hours of intensive learning where systematic thinking from management translated well to development. Discovered that building solutions is more satisfying than just implementing them.",
       color: "from-blue-500 to-purple-500"
     },
     {
@@ -268,4 +268,5 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default About
+

@@ -22,17 +22,19 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
     // Set initial states for main elements
     gsap.set(name, {
       opacity: 0.2,
-      scale: 2.8,
-      filter: 'blur(8px)'
+      scale: 3,
+      filter: 'blur(8px)',
+      force3D: true
     });
 
     gsap.set([subtitle, button], {
       opacity: 0,
-      y: 30
+      y: 30,
+      force3D: true
     });
 
     // Create main timeline
-    const tl = gsap.timeline({ delay: 0.8 });
+    const tl = gsap.timeline({ delay: 0.2 });
 
     // Matrix unscramble effect during name entrance
     const originalText = 'Ben Ngahere';
@@ -46,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
           if (finalChar === ' ') return ' ';
           
           // Stagger resolution - each character resolves at different times
-          const charResolveTime = 0.3 + (index * 0.08); // Start at 30%, stagger by 8%
+          const charResolveTime = 0.1 + (index * 0.08);
           
           if (progress >= charResolveTime) {
             return finalChar; // Character is resolved
@@ -62,17 +64,18 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
     // Name entrance with smooth matrix cycling
     tl.to(name, {
       opacity: 1,
-      scale: 1,
+      scale: 1.2,
       filter: 'blur(0px)',
-      duration: 4,
+      duration: 9,
       ease: "power3.out",
+      force3D: true,
       onUpdate: function() {
         const progress = this.progress();
         updateCounter++;
         
-        if (progress < 0.85 && name) {
-          // Only update every 3rd frame to slow down the cycling
-          if (updateCounter % 7 === 0) {
+        if (progress < 0.9 && name) {
+          // Only update every 'x' frame to slow down the cycling
+          if (updateCounter % 5 === 0) {
             name.textContent = smoothCycleText(progress);
           }
         } else if (name) {
@@ -84,12 +87,13 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
       }
     });
 
-    // Give name extra spotlight time, then subtitle
+    // Give name extra time, then subtitle
     tl.to(subtitle, {
       opacity: 1,
       y: 0,
       duration: 1,
-      ease: "power2.out"
+      ease: "power2.out",
+      force3D: true
     }, '+=1.2');
 
     // Arrow button appears after subtitle
@@ -97,7 +101,8 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      ease: "power2.out"
+      ease: "power2.out",
+      force3D: true
     }, '+=0.5');
 
     // Signal hamburger to animate in
@@ -114,7 +119,8 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
       ease: "power2.inOut",
       yoyo: true,
       repeat: -1,
-      delay: 8
+      delay: 8,
+      force3D: true
     });
 
   }, [onHamburgerAnimationComplete]);
@@ -129,49 +135,75 @@ const Hero: React.FC<HeroProps> = ({ onHamburgerAnimationComplete }) => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex items-center justify-center px-4 relative"
+      className="min-h-screen flex items-center justify-center px-4 relative gpu-accelerated"
     >
       <div className="text-center max-w-4xl mx-auto">
         {/* Main Name */}
         <h1 
           ref={nameRef}
-          className="text-6xl md:text-8xl font-bold mb-8 gradient-morph cursor-default select-none"
+          className="text-6xl md:text-8xl font-bold mb-8 gradient-morph cursor-default select-none gpu-text-morph"
           style={{ 
-          fontFamily: 'JetBrains Mono, Monaco, Consolas, monospace',
-          textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-          letterSpacing: '-0.02em'
+            fontFamily: 'JetBrains Mono, Monaco, Consolas, monospace',
+            textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            letterSpacing: '-0.02em',
+            willChange: 'transform, opacity, background-position',
+            transform: 'translate3d(0, 0, 0)'
           }}
->
+        >
           Ben Ngahere
-          </h1>
+        </h1>
 
         {/* Subtitle */}
         <p 
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-gray-300 mb-12 font-medium tracking-wide"
+          className="text-xl md:text-2xl text-gray-300 mb-12 font-medium tracking-wide gpu-accelerated"
+          style={{
+            willChange: 'transform, opacity'
+          }}
         >
           Full-Stack Developer
         </p>
 
-        {/* Circular Scroll Button - positioned at bottom center */}
+        {/* Circular Scroll Button */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <button 
             ref={buttonRef}
             onClick={scrollToAbout}
-            className="group relative w-16 h-16 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-110 shadow-xl hover:shadow-2xl flex items-center justify-center"
+            className="group relative w-8 h-8 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white transition-all duration-300 hover:bg-white/20 hover:border-white/30 hover:scale-110 shadow-xl hover:shadow-2xl flex items-center justify-center gpu-accelerated"
+            style={{
+              willChange: 'transform, opacity'
+            }}
           >
-            <FaChevronDown className="w-6 h-6 transition-transform duration-300 group-hover:translate-y-1 group-hover:scale-110" />
+            <FaChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1 group-hover:scale-110" />
             
             {/* Ripple effect on hover */}
-            <div className="absolute inset-0 rounded-full bg-white/5 scale-0 group-hover:scale-150 transition-transform duration-500 ease-out pointer-events-none"></div>
+            <div 
+              className="absolute inset-0 rounded-full bg-white/5 scale-0 group-hover:scale-150 transition-transform duration-500 ease-out pointer-events-none"
+              style={{
+                willChange: 'transform',
+                transform: 'translateZ(0)'
+              }}
+            />
           </button>
         </div>
       </div>
 
       {/* Subtle geometric background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-500/3 to-purple-500/3 rounded-full blur-xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-br from-pink-500/3 to-cyan-500/3 rounded-full blur-2xl"></div>
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 gpu-accelerated">
+        <div 
+          className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-500/3 to-purple-500/3 rounded-full blur-xl"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)'
+          }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-br from-pink-500/3 to-cyan-500/3 rounded-full blur-2xl"
+          style={{
+            willChange: 'transform',
+            transform: 'translateZ(0)'
+          }}
+        />
       </div>
     </section>
   );

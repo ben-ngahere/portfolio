@@ -19,7 +19,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientMorph 12s ease-in-out infinite;
+  animation: gradientMorph 9s ease-in-out infinite;
 }
 
 @keyframes gradientMorph {
@@ -30,13 +30,12 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Delay the animation start */
-.gradient-morph-delayed {
-  background: linear-gradient(to right, #06b6d4, #ec4899);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMorph 12s ease-in-out infinite;
-  animation-delay:2s; /* Starts after matrix effect + down arrow */
-  animation-fill-mode: backwards;
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+.gpu-text-morph {
+  will-change: transform, opacity, background-position;
+  transform: translate3d(0, 0, 0);
 }
